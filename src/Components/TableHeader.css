@@ -1,0 +1,15 @@
+.table-header {
+    background-color: #121212;
+  }
+
+.input{
+    border : 1px solid gray;
+    border-radius : 2px;
+    background-color: transparent;
+    padding : 2px;
+    color : white;
+}  
+
+.table-header  tr th{
+    color : white;
+} 
