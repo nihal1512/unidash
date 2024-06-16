@@ -2,6 +2,7 @@ import React, { useEffect, useState, } from 'react';
 import { fetchRunesTypes } from '../runes';
 import CircularProgress from '@mui/material/CircularProgress';
 import './runeTypesList.css';
+import Shimmer from './Shimmer';
 
 const RuneTypesList = () => {
   const [runeTypes, setRuneTypes] = useState([]);
@@ -36,7 +37,7 @@ const RuneTypesList = () => {
     <div className='table-container'>
       <h1>Rune Types</h1>
       {loading ? (
-          <div className="spinner-container">
+        <div className="spinner-container">
             <CircularProgress color="inherit" />
           </div>
         ) : (
@@ -75,23 +76,7 @@ const RuneTypesList = () => {
         </tbody>
       </table>
         )}
-       {/* <div className="pagination">
-        <button onClick={handlePrevious} disabled={currentPage === 1}>
-          &lt;
-        </button>
-        {pageWindow.map((pageNumber) => (
-          <button 
-            key={pageNumber} 
-            onClick={() => paginate(pageNumber)} 
-            className={currentPage === pageNumber ? 'active' : ''}
-          >
-            {pageNumber}
-          </button>
-        ))}
-        <button onClick={handleNext} disabled={currentPage === totalPages}>
-          &gt;
-        </button>
-      </div> */}
+      
 
     </div>
   );

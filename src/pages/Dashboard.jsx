@@ -18,7 +18,7 @@ const Dashboard = () => {
   return (
     <div className="dashboard">
       <h3 className="dashboard-heading">Check out BCR20 balance of the address</h3>
-      <input type="text" className="address-input" placeholder="Enter address here" />
+      {/* <input type="text" className="address-input" placeholder="Enter address here" /> */}
       <h5 className="dashboard-subheading">Recognize all operations including deploy, mint, and transfer</h5>
       {/* <div className="button-group">
         <button onClick={handleBRC20Click} className={selectedData === 'brc20' ? 'active' : ''}>BRC20</button>

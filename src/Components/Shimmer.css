@@ -1,0 +1,60 @@
+/* Shimmer.css */
+
+/* Derive colors, padding, and margins from the existing CSS */
+
+.shimmer-container {
+    width: 100%;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 20px; /* Same margin as .table-container */
+    padding: 10px; /* Same padding as .table-container */
+    background-color: #ffffff; /* Background color for the shimmer effect */
+  }
+  
+  .shimmer-table {
+    width: 90%; /* Same width as .styled-table */
+    margin-top: 10px; /* Adjust margin-top as needed */
+    border-collapse: collapse;
+  }
+  
+  .shimmer-table th {
+    padding: 12px 10px; /* Same padding as .styled-table th, td */
+    text-align: left;
+    background-color: #000000;
+    color: white;
+  }
+  
+  .shimmer-table td {
+    padding: 21px 10px; /* Same padding as .styled-table th, td */
+    text-align: left;
+    color: rgb(9, 9, 9);
+    background-color: #ffffff; /* Same background color as .styled-table th, td */
+  }
+  
+  .shimmer-row {
+    height: 60px; /* Adjust row height as needed */
+    border-bottom: 1px solid black; /* Same border-bottom as .styled-table */
+  }
+  
+  .shimmer-cell {
+    height: 20px; /* Adjust the height as needed */
+    background: linear-gradient(to right, transparent 0%, #e0e0e0 50%, transparent 100%);
+    animation: shimmer-animation 3s infinite linear;
+  }
+  
+  tbody{
+    height : 470px;
+  }
+  
+  @keyframes shimmer-animation {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+  
