@@ -1,13 +1,13 @@
-// src/components/RuneTypesList.js
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, } from 'react';
 import { fetchRunesTypes } from '../runes';
+import CircularProgress from '@mui/material/CircularProgress';
 import './runeTypesList.css';
 
 const RuneTypesList = () => {
   const [runeTypes, setRuneTypes] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(20);
-  const [pageWindow, setPageWindow] = useState([1, 2, 3, 4, 5]);
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const [itemsPerPage] = useState(20);
+  // const [pageWindow, setPageWindow] = useState([1, 2, 3, 4, 5]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -26,46 +26,20 @@ const RuneTypesList = () => {
     getRuneTypes();
   }, []);
 
-  if (loading) return <div>Loading...</div>;
+  const filteredRuneTypes = runeTypes.filter(item => item.curPrice >=1 );
+
+
   if (error) return <div>Error: {error.message}</div>;
 
-
-//   const indexOfLastItem = currentPage * itemsPerPage;
-//   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-//   const currentItems = runeTypes.slice(indexOfFirstItem, indexOfLastItem);
-
-//   const totalPages = Math.ceil(runeTypes.length / itemsPerPage);
-
-//   const paginate = (pageNumber) => {
-//     setCurrentPage(pageNumber);
-//     updatePageWindow(pageNumber);
-//   };
-
-//   const updatePageWindow = (pageNumber) => {
-//     if (pageNumber <= 3) {
-//       setPageWindow([1, 2, 3, 4, 5]);
-//     } else if (pageNumber >= totalPages - 2) {
-//       setPageWindow([totalPages - 4, totalPages - 3, totalPages - 2, totalPages - 1, totalPages]);
-//     } else {
-//       setPageWindow([pageNumber - 2, pageNumber - 1, pageNumber, pageNumber + 1, pageNumber + 2]);
-//     }
-//   };
-
-//   const handleNext = () => {
-//     if (currentPage < totalPages) {
-//       paginate(currentPage + 1);
-//     }
-//   };
-
-//   const handlePrevious = () => {
-//     if (currentPage > 1) {
-//       paginate(currentPage - 1);
-//     }
-//   };
 
   return (
     <div className='table-container'>
       <h1>Rune Types</h1>
+      {loading ? (
+          <div className="spinner-container">
+            <CircularProgress color="inherit" />
+          </div>
+        ) : (
       <table className="styled-table">
         <thead>
           <tr>
@@ -81,7 +55,7 @@ const RuneTypesList = () => {
         </thead>
         <tbody>
           {runeTypes.length > 0 ? (
-            runeTypes.map((runeType, index) => (
+            filteredRuneTypes.map((runeType, index) => (
               <tr key={index}>
                 <td colSpan={2}>{runeType.tick}</td>
                 <td>{runeType.curPrice}</td>
@@ -100,6 +74,7 @@ const RuneTypesList = () => {
           )}
         </tbody>
       </table>
+        )}
        {/* <div className="pagination">
         <button onClick={handlePrevious} disabled={currentPage === 1}>
           &lt;

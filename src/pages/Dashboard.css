@@ -7,11 +7,12 @@
   .dashboard {
     display: flex;
     flex-direction: column;
-    width: 100vw;
+    width: calc(100%-20px);
     height: 150vh;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(to bottom, #5f5f5f,#121212, #000000);
+    background-color: white;
+    /* background: linear-gradient(to bottom, #5f5f5f,#121212, #000000); */
   }
   
   .dashboard-heading {
