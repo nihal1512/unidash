@@ -4,6 +4,7 @@ import './App.css'
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import BRC20List from './pages/BRC20List';
+import Watchlist from './pages/WatchList';
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
             <Route path="/" element={<Login/>}/>
             <Route path="/dashboard" element={<Dashboard/>}/>
             <Route path="brc20list" element={<BRC20List/>}/>
+            <Route path="watchlist" element={<Watchlist/>}/>
           </Routes>
         </Router>
       </div>  

@@ -94,6 +94,30 @@ thead, tbody tr {
 .transparent-input::placeholder {
   color: white;
 }
+.search-result-item{
+ cursor : pointer;   
+}
+.reset-button {
+  padding: 8px 16px;
+  margin: 10px;
+  background-color: #121212;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.table-toggle{
+  padding : 10px;
+}
+
+.table-toggle button{
+  padding: 8px 15px;
+  margin: 10px 2px;
+  background-color: #121212;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
 
 @media (max-width: 768px) {
   .table-container {
