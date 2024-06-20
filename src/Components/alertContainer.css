@@ -18,3 +18,65 @@
     border: 1px solid #faebcc;
   }
   
+   
+  .alert-table {
+    width: 100%;
+    padding: 10px;
+    border-collapse: collapse;
+    border-bottom: 1px solid black;
+    min-width: 300px;
+  }
+  
+  .alert-table tbody {
+    display: block;
+    height: 150px;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    width: 100%;
+  }
+  
+  .alert-table tbody::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .alert-table thead, tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+  }
+  
+  .alert-table th,  .alert-table td {
+    padding: 8px 10px;
+    text-align: left;
+    color: rgb(9, 9, 9);
+    white-space: nowrap;
+    overflow: hidden;
+    border : 1px solid #121212;
+    text-overflow: ellipsis;
+  }
+
+  .alert-table td 
+  {
+    padding : 10px 10px;
+    height : 20px;
+  }
+  
+  .alert-table th {
+    background-color: #000000;
+    color: white;
+  }
+  
+  .alert-table tr {
+    background-color: rgba(255, 255, 255, 0.813);
+    overflow: hidden;
+  }
+  
+  .alert-table tr:hover {
+    background-color: rgba(203, 203, 203, 0.799);
+  }
+  
+  .alert-table td:first-child {
+    overflow: hidden;
+  }
+  
+ 

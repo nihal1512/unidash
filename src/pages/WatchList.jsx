@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import AlertContainer from '../Components/AlertContainer';
 import { fetchLatestPrices } from '../runes';
-import { updatePrices, setAlertPrice } from '../features/watchlistSlice';
+import { updatePrices, setAlertPrice } from '../features//watchlistSlice';
 import './watchlist.css';
 
 const Watchlist = () => {
@@ -29,7 +29,9 @@ const Watchlist = () => {
       isMounted = false;
       clearInterval(fetchPricesInterval);
     };
-  }, [watchlist, dispatch]);
+  }, []);
+
+  //[watchlist, dispatch]
 
   const handleAlertInputChange = (tick, value) => {
     setAlertInputs({
@@ -39,19 +41,19 @@ const Watchlist = () => {
   };
 
   const handleAlertPriceSelect = (tick) => {
-    if (alertInputs[tick]) {
-      dispatch(setAlertPrice({ tick, alertPrice: alertInputs[tick] }));
+    const item = watchlist.find((runeType) => runeType.tick === tick);
+    if (alertInputs[tick] && item) {
+      dispatch(setAlertPrice({ tick, alertPrice: alertInputs[tick], curPrice: item.curPrice }));
     }
   };
 
   const alertMessage = watchlist.length === 0 ? 'No items in the watchlist' : `You have ${watchlist.length} items in your watchlist`;
 
   return (
-    <div className="table-container">
-      <AlertContainer message={alertMessage} type={watchlist.length === 0 ? 'warning' : 'info'} />
-      <h1>Watchlist</h1>
-      <div className="table-wrapper">
-        <table className="styled-table">
+    <div className="watchlist-table-container">
+      {watchlist.some(item => item.alertPrice) && <AlertContainer watchlist={watchlist} />}      <h1>Watchlist</h1>
+   
+        <table className="watchlist-table">
           <thead>
             <tr>
               <th>Tick</th>
@@ -76,11 +78,11 @@ const Watchlist = () => {
                   <td>{runeType.holders}</td>
                   <td><img src={runeType.symbol} alt="symbol" className="symbol-image" /></td>
                   <td>
-                    <div className="alert-price-container">
+                    <div className="alert-container">
                       <input
                         type="number"
                         value={alertInputs[runeType.tick] || ''}
-                        onChange={(e) => handleAlertInputChange(runeType.tick, e.target.value)}        
+                        onChange={(e) => handleAlertInputChange(runeType.tick, e.target.value)}
                         className="alert-input"
                       />
                       <button onClick={() => handleAlertPriceSelect(runeType.tick)} className="alert-button">Set</button>
@@ -96,7 +98,7 @@ const Watchlist = () => {
           </tbody>
         </table>
       </div>
-    </div>
+
   );
 };
 
