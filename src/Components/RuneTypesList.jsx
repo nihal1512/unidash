@@ -1,14 +1,14 @@
-import React, { useEffect, useState, } from 'react';
+// src/components/RuneTypesList.js
+import React, { useEffect, useState } from 'react';
 import { fetchRunesTypes } from '../runes';
 import CircularProgress from '@mui/material/CircularProgress';
+import SearchBar from './SearchBar';
 import './runeTypesList.css';
-import Shimmer from './Shimmer';
 
 const RuneTypesList = () => {
   const [runeTypes, setRuneTypes] = useState([]);
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const [itemsPerPage] = useState(20);
-  // const [pageWindow, setPageWindow] = useState([1, 2, 3, 4, 5]);
+  const [filteredData, setFilteredData] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -17,6 +17,7 @@ const RuneTypesList = () => {
       try {
         const data = await fetchRunesTypes();
         setRuneTypes(data);
+        setFilteredData(data);
       } catch (error) {
         setError(error);
       } finally {
@@ -27,57 +28,74 @@ const RuneTypesList = () => {
     getRuneTypes();
   }, []);
 
-  const filteredRuneTypes = runeTypes.filter(item => item.curPrice >=1 );
+  const handleSearch = (filteredData) => {
+    setSearchResults(filteredData);
+    setFilteredData(filteredData.length > 0 ? filteredData : runeTypes);
+  };
 
+  const handleReset = () => {
+    setSearchResults([]);
+    setFilteredData(runeTypes);
+  };
 
   if (error) return <div>Error: {error.message}</div>;
 
-
   return (
-    <div className='table-container'>
+    <div className="table-container">
       <h1>Rune Types</h1>
+      <SearchBar data={runeTypes} onSearch={handleSearch} />
+      
+      {searchResults.length > 0 && (
+        <div className="search-results">
+          {searchResults.map((runeType, index) => (
+            <div key={index} className="search-result-item">
+              {runeType.tick}
+            </div>
+          ))}
+          <button onClick={handleReset} className="reset-button">Reset Table</button>
+        </div>
+      )}
+
       {loading ? (
         <div className="spinner-container">
-            <CircularProgress color="inherit" />
-          </div>
-        ) : (
-      <table className="styled-table">
-        <thead>
-          <tr>
-            <th colSpan={2}>Tick</th>
-            <th>Current Price</th>
-            <th colSpan={2}>Change Price</th>
-            <th>BTC Volume</th>
-            <th>Amount Volume</th>
-            <th>Holders</th>
-            <th>Symbol</th>
-            <th>Warning</th>
-          </tr>
-        </thead>
-        <tbody>
-          {runeTypes.length > 0 ? (
-            filteredRuneTypes.map((runeType, index) => (
-              <tr key={index}>
-                <td colSpan={2}>{runeType.tick}</td>
-                <td>{runeType.curPrice}</td>
-                <td colSpan={2}>{runeType.changePrice}</td>
-                <td>{runeType.btcVolume}</td>
-                <td>{runeType.amountVolume}</td>
-                <td>{runeType.holders}</td>
-                <td className="symbol">{runeType.symbol}</td>
-                <td className="warning">{runeType.warning}</td>
-              </tr>
-            ))
-          ) : (
+          <CircularProgress color="inherit" />
+        </div>
+      ) : (
+        <table className="styled-table">
+          <thead>
             <tr>
-              <td>No data available</td>
+              <th>Tick</th>
+              <th>Current Price</th>
+              <th>Change Price</th>
+              <th>BTC Volume</th>
+              <th>Amount Volume</th>
+              <th>Holders</th>
+              <th>Symbol</th>
+              <th>Warning</th>
             </tr>
-          )}
-        </tbody>
-      </table>
-        )}
-      
-
+          </thead>
+          <tbody>
+            {filteredData.length > 0 ? (
+              filteredData.map((runeType, index) => (
+                <tr key={index}>
+                  <td>{runeType.tick}</td>
+                  <td>{runeType.curPrice}</td>
+                  <td>{runeType.changePrice}</td>
+                  <td>{runeType.btcVolume}</td>
+                  <td>{runeType.amountVolume}</td>
+                  <td>{runeType.holders}</td>
+                  <td>{runeType.symbol}</td>
+                  <td>{runeType.warning}</td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="8">No data available</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 };
