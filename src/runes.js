@@ -1,10 +1,8 @@
 import axios from 'axios';
 
 
-
-
 const BASE_URL = 'https://open-api.unisat.io/v3/';
-const API_KEY = 'b8d198a9e92f150338d92d82f1199a633eed8a34839bd8ff81085678336bbc36'; 
+const API_KEY = 'a21c294eedde0a38e6cd4aa475e6357ec4425f2b3791ad666e1621750ba68f7f'; 
 
 const api = axios.create({
   baseURL: BASE_URL,

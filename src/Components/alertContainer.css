@@ -7,9 +7,9 @@
   }
   
   .alert-container.info {
-    background-color: #e7f3fe;
-    color: #31708f;
-    border: 1px solid #bce8f1;
+    background-color: white;
+    color: #121212;
+    border: 1px solid #121212;
   }
   
   .alert-container.warning {

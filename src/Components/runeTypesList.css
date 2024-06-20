@@ -16,6 +16,7 @@
   border-collapse: collapse;
   border-bottom: 1px solid black;
   min-width: 600px;
+ 
 }
 
 tbody {
@@ -42,6 +43,7 @@ thead, tbody tr {
   color: rgb(9, 9, 9);
   white-space: nowrap;
   overflow: hidden;
+  border : 1px solid #121212;
   text-overflow: ellipsis;
 }
 
@@ -97,7 +99,7 @@ thead, tbody tr {
 }
 
 .table-toggle {
-  padding: 10px;
+  padding: 0px;
 }
 
 .table-toggle button {

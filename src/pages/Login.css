@@ -111,11 +111,15 @@
     .login-page {
       height: 100vh;
       margin: 0; padding: 0;
+      display: flex;
+      align-items: flex-start;
+     
     }
   
     .login {
-      width: 100vw;
+      width: 80vw;
       height: auto;
+      margin : 80px;
     }
   
     .login-form {
@@ -129,7 +133,7 @@
     .login-input {
       width: 70vw;
       padding: 8px;
-      border: 2px solid #ffffff;
+      border: 2px solid #121212;
       border-radius: 5px;
       opacity: 90%;
     }
