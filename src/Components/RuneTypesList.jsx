@@ -65,7 +65,7 @@ const RuneTypesList = () => {
       <div className="table-toggle">
         <button 
           onClick={() => setSelectedTable('unisat')} 
-          className={selectedTable === 'unisat' ? 'active' : ''}>UniSat List
+          className={selectedTable === 'unisat' ? 'active' : ''}>UniSatz
         </button>
         <button 
           onClick={() => setSelectedTable('magiceden')} 
@@ -112,13 +112,13 @@ const RuneTypesList = () => {
             {selectedTable === 'unisat' && filteredData.length > 0 ? (
               filteredData.map((runeType, index) => (
                 <tr key={index} ref={(el) => (tableRefs.current[runeType.tick] = el)}>
-                  <td>{runeType.tick}</td>
+                  <td className='tick'>{runeType.tick}</td>
                   <td>{runeType.curPrice}</td>
                   <td>{runeType.changePrice}</td>
                   <td>{runeType.btcVolume}</td>
                   <td>{runeType.amountVolume}</td>
                   <td>{runeType.holders}</td>
-                  <td>{runeType.symbol}</td>
+                  <td><div className='symbol-image'>{runeType.symbol}</div></td>
                   <td>
                     <input
                       type="checkbox"
@@ -134,7 +134,7 @@ const RuneTypesList = () => {
                 </tr>
               ) : (
                 <tr>
-                  <td colSpan="8">No data available</td>
+                  <td colSpan="8">No data available : error fetching API data</td>
                 </tr>
               )
             )}

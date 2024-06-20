@@ -9,8 +9,8 @@
     flex-direction: column;
     width: calc(100%-20px);
     height: 150vh;
-    align-items: center;
-    justify-content: center;
+    align-items: right;
+    justify-content: flex-start;
     background-color: white;
     /* background: linear-gradient(to bottom, #5f5f5f,#121212, #000000); */
   }
@@ -39,4 +39,15 @@
     font-size: 1.2em;
     color:#000000;
     margin-bottom: 25px;
+  }
+
+  .navigation{
+    text-align: center;
+  }
+
+  .watchlist-link{
+    color : #121212;
+    cursor : pointer;
+    text-decoration: none;
+    font-weight: 600;
   }

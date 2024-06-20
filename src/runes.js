@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-// Using an alternative CORS proxy
+
 
 
 const BASE_URL = 'https://open-api.unisat.io/v3/';
-const API_KEY = 'a21c294eedde0a38e6cd4aa475e6357ec4425f2b3791ad666e1621750ba68f7f'; // Replace with your actual API key
+const API_KEY = 'b8d198a9e92f150338d92d82f1199a633eed8a34839bd8ff81085678336bbc36'; 
 
 const api = axios.create({
   baseURL: BASE_URL,
@@ -13,8 +13,6 @@ const api = axios.create({
     'accept': 'application/json'
   }
 });
-
-
 
 export const fetchRunesTypes = async () => {
   try {
@@ -27,23 +25,20 @@ export const fetchRunesTypes = async () => {
   }
 };
 
-// Wrapper function to use the CORS proxy for API calls
-export const fetchWithCorsProxy = async (endpoint, method = 'POST', data = {}) => {
+
+export const fetchLatestPrices = async (watchlist) => {
   try {
-    const encodedUrl = encodeURIComponent(BASE_URL + endpoint);
-    const response = await axios({
-      url: `${CORS_PROXY}${encodedUrl}`,
-      method,
-      data,
-      headers: {
-        'Authorization': `Bearer ${API_KEY}`,
-        'accept': 'application/json'
-      }
-    });
-    const jsonResponse = JSON.parse(response.data.contents);
-    return jsonResponse;
+    const updatedPrices = await Promise.all(watchlist.map(async (item) => {
+      const response = await api.post('market/runes/auction/runes_types', { tick: item.tick });
+      const updatedItem = response.data.data.list.find(rune => rune.tick === item.tick);
+      return {
+        ...item,
+        curPrice: updatedItem.curPrice,
+      };
+    }));
+    return updatedPrices;
   } catch (error) {
-    console.error(`Error fetching data from ${endpoint}:`, error.toJSON ? error.toJSON() : error);
+    console.error('Error fetching latest prices:', error.toJSON ? error.toJSON() : error);
     throw error;
   }
 };
