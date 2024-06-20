@@ -1,9 +1,8 @@
-
 .watchlist-table-container {
     width: calc(100% - 40px);
     display: flex;
     flex-direction: column;
-    align-items: right;
+    align-items: center;
     justify-content: center;
     margin: 5px 20px;
     padding: 10px 20px;
@@ -12,46 +11,41 @@
   
   .watchlist-table {
     width: 100%;
-    padding: 10px;
+    padding: 0;
     border-collapse: collapse;
     border-bottom: 1px solid black;
     min-width: 600px;
   }
   
-  .watchlist-table tbody {
+  .watchlist-table thead, .watchlist-table tbody {
     display: block;
+    width: 100%;
+  }
+  
+  .watchlist-table tbody {
     height: 470px;
     overflow-y: scroll;
     scrollbar-width: none;
-    width: 100%;
   }
   
   .watchlist-table tbody::-webkit-scrollbar {
     display: none;
   }
   
-  .watchlist-table thead, tbody tr {
+  .watchlist-table thead, .watchlist-table tbody tr {
     display: table;
     width: 100%;
     table-layout: fixed;
-    height : 10px;
   }
   
-  .watchlist-table th, .styled-table td {
-    padding: 12px 10px;
+  .watchlist-table th, .watchlist-table td {
+    padding: 8px 10px;  /* Adjusted padding */
     text-align: left;
     color: rgb(9, 9, 9);
     white-space: nowrap;
     overflow: hidden;
-    border : 1px solid #121212;
+    border: 1px solid #121212;
     text-overflow: ellipsis;
-  }
-  .watchlist-table td 
-  {
-    padding : 0px 10px;
-    height : 10px;
-    border : 1px solid #121212;
-    overflow : hidden;
   }
   
   .watchlist-table th {
@@ -61,30 +55,36 @@
   
   .watchlist-table tr {
     background-color: rgba(255, 255, 255, 0.813);
-    overflow: hidden;
   }
   
   .watchlist-table tr:hover {
     background-color: rgba(203, 203, 203, 0.799);
   }
   
-  .watchlist-table td:first-child {
-    overflow: hidden;
-  }
-
-  .alert-container{
-
+  .alert-container {
+    display: flex;
+    align-items: center;
   }
   
-.alert-input{
-    width : 50px;
-    border : 1px solid #121212;
-    padding:  4px;
-}
-
-.alert-button{
+  .alert-input {
+    width: 70px; /* Adjusted width */
+    border: 1px solid #121212;
+    padding: 4px;
+    margin-right: 5px;
+  }
+  
+  .alert-button {
     background-color: #121212;
-    color : white;
-    border : none;
+    color: white;
+    border: none;
     padding: 5px;
-}
+    cursor: pointer;
+  }
+  
+  .symbol-image {
+    width: 40px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+  }
+  

@@ -1,8 +1,23 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './alertContainer.css';
 
 const AlertContainer = ({ message, type, watchlist }) => {
   const alerts = watchlist?.filter(item => item.alertPrice) || [];
+  const notifiedTicks = useRef(new Set());
+
+  useEffect(() => {
+    alerts.forEach(alert => {
+      const currentPrice = parseFloat(alert.curPrice);
+      const alertPrice = parseFloat(alert.alertPrice);
+
+      if (currentPrice === alertPrice && !notifiedTicks.current.has(alert.tick)) {
+        toast.success(`Price matched for ${alert.tick} at ${currentPrice}`);
+        notifiedTicks.current.add(alert.tick);
+      }
+    });
+  }, [alerts]);
 
   return (
     <div className={`alert-container ${type}`}>
@@ -21,12 +36,8 @@ const AlertContainer = ({ message, type, watchlist }) => {
             </thead>
             <tbody>
               {alerts.map((alert, index) => {
-                
-                // Convert to numbers
                 const currentPrice = parseFloat(alert.curPrice);
                 const alertPrice = parseFloat(alert.alertPrice);
-
-                // Check and compare prices
                 const matched = currentPrice === alertPrice;
 
                 return (
@@ -42,6 +53,7 @@ const AlertContainer = ({ message, type, watchlist }) => {
           </table>
         </div>
       )}
+      <ToastContainer />
     </div>
   );
 };
