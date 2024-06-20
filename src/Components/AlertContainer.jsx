@@ -16,16 +16,28 @@ const AlertContainer = ({ message, type, watchlist }) => {
                 <th>Tick</th>
                 <th>Current Price</th>
                 <th>Alert Price</th>
+                <th>Matched</th>
               </tr>
             </thead>
             <tbody>
-              {alerts.map((alert, index) => (
-                <tr key={index}>
-                  <td>{alert.tick}</td>
-                  <td>{alert.curPrice}</td>
-                  <td>{alert.alertPrice}</td>
-                </tr>
-              ))}
+              {alerts.map((alert, index) => {
+                
+                // Convert to numbers
+                const currentPrice = parseFloat(alert.curPrice);
+                const alertPrice = parseFloat(alert.alertPrice);
+
+                // Check and compare prices
+                const matched = currentPrice === alertPrice;
+
+                return (
+                  <tr key={index}>
+                    <td>{alert.tick}</td>
+                    <td>{alert.curPrice}</td>
+                    <td>{alert.alertPrice}</td>
+                    <td>{matched ? 'Yes' : 'No'}</td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>

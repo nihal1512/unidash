@@ -4,6 +4,8 @@ import './App.css'
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import Watchlist from './pages/WatchList';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function App() {
@@ -17,8 +19,12 @@ function App() {
             <Route path="/dashboard" element={<Dashboard/>}/>
           
             <Route path="watchlist" element={<Watchlist/>}/>
+
           </Routes>
         </Router>
+        <div>
+        <ToastContainer />
+        </div>
       </div>  
     </>
   )
