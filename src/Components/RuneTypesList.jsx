@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { fetchRunesTypes } from '../runes';
 import CircularProgress from '@mui/material/CircularProgress';
 import SearchBar from './SearchBar';
@@ -62,6 +63,7 @@ const RuneTypesList = () => {
   return (
     <div className="table-container">
       <h1>Rune Types</h1>
+      <div className='toggle-wrapper'>
       <div className="table-toggle">
         <button 
           onClick={() => setSelectedTable('unisat')} 
@@ -71,6 +73,10 @@ const RuneTypesList = () => {
           onClick={() => setSelectedTable('magiceden')} 
           className={selectedTable === 'magiceden' ? 'active' : ''}>MagicEden
         </button>
+      </div>
+      <div>
+        <Link to="/watchlist" className='watchlist-link'>Go to Watchlist</Link>
+      </div>
       </div>
 
       <SearchBar data={runeTypes} onSearch={handleSearch} />

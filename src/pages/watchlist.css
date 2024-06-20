@@ -1,3 +1,21 @@
 .styled-table{
 border-bottom: none;
 }
+
+.alert-input{
+    width : 60px;
+    border : 1px solid #121212;
+    padding:  4px;
+}
+  
+.alert-price-container{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.alert-button{
+    background-color: #121212;
+    color : white;
+    border : none;
+    padding: 5px;
+}

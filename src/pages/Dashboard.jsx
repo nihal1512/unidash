@@ -8,9 +8,7 @@ const Dashboard = () => {
     <div className="dashboard">
       
       <RuneTypesList />
-      <div className="navigation">
-        <Link to="/watchlist" className='watchlist-link'>Go to Watchlist</Link>
-      </div>
+      
     </div>
   );
 };

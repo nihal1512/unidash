@@ -17,9 +17,16 @@ const watchlistSlice = createSlice({
           state[index].curPrice = updatedItem.curPrice;
         }
       });
+    },
+    setAlertPrice: (state, action) => {
+      const { tick, alertPrice } = action.payload;
+      const index = state.findIndex(item => item.tick === tick);
+      if (index !== -1) {
+        state[index].alertPrice = alertPrice;
+      }
     }
   }
 });
 
-export const { addToWatchlist, removeFromWatchlist, updatePrices } = watchlistSlice.actions;
+export const { addToWatchlist, removeFromWatchlist, updatePrices, setAlertPrice } = watchlistSlice.actions;
 export default watchlistSlice.reducer;

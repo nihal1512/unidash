@@ -7,7 +7,7 @@
   justify-content: center;
   margin: 5px 20px;
   padding: 10px 20px;
-  overflow-x: auto;
+  overflow-x: hidden;
 }
 
 .styled-table {
@@ -118,6 +118,21 @@ thead, tbody tr {
   margin: 0 auto;
 }
 
+.toggle-wrapper{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.watchlist-link{
+  color : #121212;
+  cursor : pointer;
+  text-decoration: none;
+  font-weight: 600;
+  margin-right : 170px;
+}
+
 @media (max-width: 768px) {
   .table-container {
     margin: 5px 10px;
@@ -148,6 +163,10 @@ thead, tbody tr {
 
   tbody {
     height: 470px;
+  }
+  .watchlist-link{
+    
+    margin-right : 10px;
   }
 }
 
