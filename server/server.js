@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const watchlistRoutes = require('./routes/Watchlist');
+const authRoutes = require('./routes/auth');
 
 const app = express();
 app.use(cors({
@@ -11,6 +12,7 @@ app.use(cors({
     methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'], // Allow PATCH method
     allowedHeaders: ['Content-Type', 'Authorization']
   }));
+  
 const port = 5000;
 const mongoURI = 'mongodb+srv://harshtripathi042:harsh123@cluster0.etqbz6r.mongodb.net/unidash';
 
@@ -20,6 +22,7 @@ mongoose.connect(mongoURI)
 
 app.use(bodyParser.json());
 app.use('/api/v1/watchlist', watchlistRoutes);
+app.use('/api/v1/auth', authRoutes);
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
