@@ -6,7 +6,11 @@ const bodyParser = require('body-parser');
 const watchlistRoutes = require('./routes/Watchlist');
 
 const app = express();
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:5173', // Replace with the URL of your frontend if different
+    methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'], // Allow PATCH method
+    allowedHeaders: ['Content-Type', 'Authorization']
+  }));
 const port = 5000;
 const mongoURI = 'mongodb+srv://harshtripathi042:harsh123@cluster0.etqbz6r.mongodb.net/unidash';
 
