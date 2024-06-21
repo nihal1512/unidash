@@ -1,10 +1,12 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import { fetchRunesTypes } from '../runes';
 import CircularProgress from '@mui/material/CircularProgress';
 import SearchBar from './SearchBar';
 import { useDispatch } from 'react-redux';
 import { addToWatchlist, removeFromWatchlist } from '../features/watchlistSlice';
+import MagicEdenTable from './MagicEdenTable';
 import './runeTypesList.css';
 
 const RuneTypesList = () => {
@@ -50,11 +52,23 @@ const RuneTypesList = () => {
     }
   };
 
-  const handleCheckboxChange = (runeType) => (event) => {
+  const handleCheckboxChange = (runeType) => async (event) => {
     if (event.target.checked) {
       dispatch(addToWatchlist(runeType));
+      try {
+        const response = await axios.post('http://localhost:5000/api/v1/watchlist', runeType);
+        console.log('Post response:', response.data);
+      } catch (error) {
+        console.error('Error adding to watchlist:', error.response ? error.response.data : error.message);
+      }
     } else {
       dispatch(removeFromWatchlist(runeType.tick));
+      try {
+        const response = await axios.delete(`http://localhost:5000/api/v1/watchlist/${runeType.tick}`);
+        console.log('Delete response:', response.data);
+      } catch (error) {
+        console.error('Error removing from watchlist:', error.response ? error.response.data : error.message);
+      }
     }
   };
 
@@ -64,19 +78,19 @@ const RuneTypesList = () => {
     <div className="table-container">
       <h1>Rune Types</h1>
       <div className='toggle-wrapper'>
-      <div className="table-toggle">
-        <button 
-          onClick={() => setSelectedTable('unisat')} 
-          className={selectedTable === 'unisat' ? 'active' : ''}>UniSatz
-        </button>
-        <button 
-          onClick={() => setSelectedTable('magiceden')} 
-          className={selectedTable === 'magiceden' ? 'active' : ''}>MagicEden
-        </button>
-      </div>
-      <div>
-        <Link to="/watchlist" className='watchlist-link'>Go to Watchlist</Link>
-      </div>
+        <div className="table-toggle">
+          <button 
+            onClick={() => setSelectedTable('unisat')} 
+            className={selectedTable === 'unisat' ? 'active' : ''}>UniSat
+          </button>
+          <button 
+            onClick={() => setSelectedTable('magiceden')} 
+            className={selectedTable === 'magiceden' ? 'active' : ''}>MagicEden
+          </button>
+        </div>
+        <div>
+          <Link to="/watchlist" className='watchlist-link'>Go to Watchlist</Link>
+        </div>
       </div>
 
       <SearchBar data={runeTypes} onSearch={handleSearch} />
@@ -101,51 +115,49 @@ const RuneTypesList = () => {
           <CircularProgress color="inherit" />
         </div>
       ) : (
-        <table className="styled-table">
-          <thead>
-            <tr>
-              <th>Tick</th>
-              <th>Current Price</th>
-              <th>Change Price</th>
-              <th>BTC Volume</th>
-              <th>Amount Volume</th>
-              <th>Holders</th>
-              <th>Symbol</th>
-              <th>Watch List</th>
-            </tr>
-          </thead>
-          <tbody>
-            {selectedTable === 'unisat' && filteredData.length > 0 ? (
-              filteredData.map((runeType, index) => (
-                <tr key={index} ref={(el) => (tableRefs.current[runeType.tick] = el)}>
-                  <td className='tick'>{runeType.tick}</td>
-                  <td>{runeType.curPrice}</td>
-                  <td>{runeType.changePrice}</td>
-                  <td>{runeType.btcVolume}</td>
-                  <td>{runeType.amountVolume}</td>
-                  <td>{runeType.holders}</td>
-                  <td><div className='symbol-image'>{runeType.symbol}</div></td>
-                  <td>
-                    <input
-                      type="checkbox"
-                      onChange={handleCheckboxChange(runeType)}
-                    />
-                  </td>
-                </tr>
-              ))
-            ) : (
-              selectedTable === 'magiceden' ? (
-                <tr>
-                  <td colSpan="8">MagicEden table content will be here</td>
-                </tr>
+        selectedTable === 'unisat' ? (
+          <table className="styled-table">
+            <thead>
+              <tr>
+                <th>Tick</th>
+                <th>Current Price</th>
+                <th>Change Price</th>
+                <th>BTC Volume</th>
+                <th>Amount Volume</th>
+                <th>Holders</th>
+                <th>Symbol</th>
+                <th>Watch List</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredData.length > 0 ? (
+                filteredData.map((runeType, index) => (
+                  <tr key={index} ref={(el) => (tableRefs.current[runeType.tick] = el)}>
+                    <td className='tick'>{runeType.tick}</td>
+                    <td>{runeType.curPrice}</td>
+                    <td>{runeType.changePrice}</td>
+                    <td>{runeType.btcVolume}</td>
+                    <td>{runeType.amountVolume}</td>
+                    <td>{runeType.holders}</td>
+                    <td>{runeType.symbol} </td>
+                    <td>
+                      <input
+                        type="checkbox"
+                        onChange={handleCheckboxChange(runeType)}
+                      />
+                    </td>
+                  </tr>
+                ))
               ) : (
                 <tr>
-                  <td colSpan="8">No data available : error fetching API data</td>
+                  <td colSpan="8">No data available</td>
                 </tr>
-              )
-            )}
-          </tbody>
-        </table>
+              )}
+            </tbody>
+          </table>
+        ) : (
+          <MagicEdenTable />
+        )
       )}
     </div>
   );
